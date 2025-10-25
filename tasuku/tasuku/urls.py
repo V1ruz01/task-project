@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tasukuapp.views import TempltView
 
 urlpatterns = [
     path('admin', admin.site.urls),
     #url of a main app (use include)
-    path('', include('tasukuapp.urls', namespace='tasukuapp')),
+    path("", include("tasukuapp.urls", namespace="tasks")),
+    path("accounts/", include("django.contrib.auth.urls"))
 ]

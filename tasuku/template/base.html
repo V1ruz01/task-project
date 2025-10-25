@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Tracker</title>
+</head>
+<body>
+  <div style="max-width: 700px; margin: 0 auto; font-family: sans-serif;">
+    {% block content %}{% endblock %}
+    <nav>
+      <div>
+        <a href="{% url 'tasks:task_list' %}">🏠 Головна</a>
+        {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method="post" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" >🚪 Вийти</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}">🔑 Увійти</a>
+          <a href="{% url 'tasks:register' %}">📝 Реєстрація</a>
+        {% endif %}
+      </div>
+  
+      {% if user.is_authenticated %}
+        <div>👋 Вітаємо, <strong>{{ user.username }}</strong>!</div>
+      {% endif %}
+    </nav>  
+  </div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+how to make a registration
+
+registration -> validation#1 -> confirmation -> validation#2-> login -> validation#3 -> redirection

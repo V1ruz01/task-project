@@ -18,6 +18,7 @@ lib/
 lib64/
 parts/
 sdist/
+task-project/tasuku/tasuku/howto.txt
 var/
 wheels/
 share/python-wheels/
