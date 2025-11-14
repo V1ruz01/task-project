@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 style="text-align:center;">Edit Comment</h2>
+
+<form method="post" style="max-width: 600px; margin: auto;">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Save Changes</button>
+</form>
+
+{% endblock %}

@@ -2,29 +2,125 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>Task Tracker</title>
+  <title>📋 Task Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 500;
+      margin-right: 15px;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    nav div {
+      font-weight: 600;
+      color: #333;
+    }
+
+    form.logout-form {
+      display: inline;
+    }
+
+    form.logout-form button {
+      background: none;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    form.logout-form button:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #777;
+      font-size: 14px;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-  <div style="max-width: 700px; margin: 0 auto; font-family: sans-serif;">
-    {% block content %}{% endblock %}
-    <nav>
-      <div>
-        <a href="{% url 'tasks:task_list' %}">🏠 Головна</a>
-        {% if user.is_authenticated %}
-          <form action="{% url 'logout' %}" method="post" class="logout-form">
-            {% csrf_token %}
-            <button type="submit" >🚪 Вийти</button>
-          </form>
-        {% else %}
-          <a href="{% url 'login' %}">🔑 Увійти</a>
-          <a href="{% url 'tasks:register' %}">📝 Реєстрація</a>
-        {% endif %}
-      </div>
-  
+  <header>
+    <h1>📋 Task Tracker</h1>
+  </header>
+
+  <nav>
+    <div>
+      <a href="{% url 'tasks:task_list' %}">🏠 Main Menu</a>
       {% if user.is_authenticated %}
-        <div>👋 Вітаємо, <strong>{{ user.username }}</strong>!</div>
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+          {% csrf_token %}
+          <button type="submit">🚪 Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">🔑 Login</a>
+        <a href="{% url 'tasks:register' %}">📝 Register</a>
       {% endif %}
-    </nav>  
+    </div>
+
+    {% if user.is_authenticated %}
+      <div>👋 Welcome, <strong>{{ user.username }}</strong>!</div>
+    {% endif %}
+  </nav>
+
+  <div class="container">
+    {% block content %}{% endblock %}
   </div>
+
+  <footer>
+    © {{ now|date:"Y" }} Task Tracker — Track your Tasks! 💻
+  </footer>
 </body>
 </html>

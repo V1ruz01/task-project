@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 style="text-align:center;">Add Comment to "{{ task.title }}"</h2>
+
+<form method="post" enctype="multipart/form-data" style="max-width: 600px; margin: auto;">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Submit</button>
+</form>
+
+{% endblock %}
