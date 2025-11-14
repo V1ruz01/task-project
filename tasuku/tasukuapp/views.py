@@ -22,10 +22,10 @@ class TaskListView(ListView):
    context_object_name = "tasks"
    template_name = "tasks/task_list.html"
 
-   def query_set(self):
-      query_set = models.TaskStatus.object.all()
+   def get_queryset(self):
+      query_set = models.TaskStatus.objects.all()
 
-      if self.request.user.is_authenticated():
+      if self.request.user.is_authenticated:
          query_set = query_set.filter(creator = self.request.user)
 
       form = FiltrationForm(self.request.GET)
@@ -34,7 +34,7 @@ class TaskListView(ListView):
 
       if status:
          query_set = query_set.filter(status=status)
-      
+
       return query_set
 
       
@@ -80,7 +80,7 @@ class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 class RegisterView(CreateView):
    template_name = "registration/register.html"
    form_class = UserCreationForm
-   success_url = reverse_lazy("registration:login")
+   success_url = reverse_lazy("tasks:task_list")
 
    def form_valid(self, form):
       response = super().form_valid(form)

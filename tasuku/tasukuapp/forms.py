@@ -4,7 +4,7 @@ from .models import TaskStatus, CommentModel
 class TaskForm(forms.ModelForm):
     class Meta:
         model = TaskStatus
-        fields = ('title', 'desc', 'status')
+        fields = ('title', 'desc', 'status', 'priority', 'due_date')
 
 # add an ability to add images to the tasks
 

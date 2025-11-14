@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -12,10 +13,19 @@ class TaskStatus(models.Model):
         DONE = 'Done'
         CANCELLED =  'Cancelled'
 
+    class Priority(models.TextChoices):
+        LOW = 'low', 'Low'
+        MEDIUM = 'medium', 'Medium'
+        HIGH = 'high', 'High'
+
     title = models.TextField(max_length=50, default='Tasks')
     desc = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.TODO,)
+    priority = models.CharField(max_length=10, choices=Priority.choices, default=Priority.MEDIUM)
+    due_date = models.DateField(null=True, blank=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
     class Meta:
@@ -24,6 +34,10 @@ class TaskStatus(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def completed(self):
+        return self.status == self.Status.DONE
     
 
 class CommentModel(models.Model):
